@@ -164,3 +164,9 @@ cython_debug/
 .git-broken/
 users.db
 users.database
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+*.sqlite-journal
