@@ -1,11 +1,9 @@
-
 from fileinput import filename
 from gc import DEBUG_STATS
 import discord
 from discord.ext import commands
 import os
 import traceback
-from Study_Bot import config
 import random
 import asyncio
 import datetime
@@ -32,7 +30,6 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 TOKEN = os.getenv("TOKEN")
 GUILD_ID = 1491953788611985419
 
-ADMIN_WHITELIST = [1265426408793182239]
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -62,20 +59,6 @@ class MyBot(commands.Bot):
         except Exception as e:
             print("❌ COG LOAD ERROR")
             print(pretty_error(e))
-
-    async def interaction_check(self, interaction: discord.Interaction):
-        if (
-            config.MAINTENANCE_MODE
-            and interaction.user.id not in config.ADMIN_WHITELIST
-        ):
-            await interaction.response.send_message(
-                "🛠️ Study Bot is currently under maintenance.\n\n"
-                "Please check back later!",
-                ephemeral=True
-            )
-            return False
-
-        return True
 
 
 bot = MyBot(
@@ -135,4 +118,3 @@ if not TOKEN:
     print("❌ TOKEN missing in Secrets!")
 else:
     bot.run(TOKEN)
-
